@@ -19,8 +19,10 @@ class IdealGas:
 
     @staticmethod
     def _data_from_file(data_file):
-        return np.genfromtxt((replace_comma_to_dot(text) for text in open(data_file)), delimiter=';',
-                             dtype=(float, float), names=['P_bar', 'd_gL'], skip_header=1)
+        return np.genfromtxt((replace_comma_to_dot(text) for text in
+                              open(data_file)), delimiter=';',
+                             dtype=(float, float),
+                             names=['P_bar', 'd_gL'], skip_header=1)
 
     @property
     def pressure_data(self):
@@ -33,18 +35,23 @@ class IdealGas:
     @property
     def regression(self):
         pressure_per_density = self.pressure_data / self.density_data
-        return linregress(self.density_data.magnitude, pressure_per_density.magnitude)
+        return linregress(self.density_data.magnitude,
+                          pressure_per_density.magnitude)
 
     @property
     def molar_mass(self):
-        MM = gas_constant * self.temperature / (self.regression.intercept * ureg('bar / (g/l)'))
+        MM = gas_constant * self.temperature / \
+            (self.regression.intercept * ureg('bar / (g/l)'))
         return MM.to('g/mol')
 
     def plot(self):
-        fig, ax = plt.subplots(figsize=(8, 6), nrows=1, ncols=1, tight_layout=True)
+        fig, ax = plt.subplots(figsize=(8, 6), nrows=1,
+                               ncols=1, tight_layout=True)
         plot_params(ax)
 
-        x = np.linspace(self.density_data[0].magnitude, self.density_data[-1].magnitude, 50)
+        x = np.linspace(
+            self.density_data[0].magnitude,
+            self.density_data[-1].magnitude, 50)
         y = self.regression.slope * x + self.regression.intercept
         pressure_per_density = self.pressure_data / self.density_data
         ax.plot(x, y, color='red', zorder=-1)
@@ -52,8 +59,11 @@ class IdealGas:
         ax.scatter(self.density_data, pressure_per_density, s=60)
 
         ax.set_xlabel(r'$\rho$ / $g \cdot \ell^{-1}$', fontsize=18)
-        ax.set_ylabel(r'$\frac{P}{\rho}$ / $bar \cdot \ell \cdot g^{-1}$', fontsize=18)
-        ax.text(2, 0.56, f'y = {self.regression.slope:.3e}x + {self.regression.intercept:.3e}', fontsize=14, bbox=dict(facecolor='red', alpha=0.9))
+        ax.set_ylabel(
+            r'$\frac{P}{\rho}$ / $bar \cdot \ell \cdot g^{-1}$', fontsize=18)
+        ax.text(2, 0.56,
+                f'y = {self.regression.slope:.3e}x + {self.regression.intercept:.3e}',  # NOQA
+                fontsize=14, bbox=dict(facecolor='red', alpha=0.9))
         plt.show()
 
 

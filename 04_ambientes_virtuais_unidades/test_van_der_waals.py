@@ -10,7 +10,8 @@ def test_valores_exemplo():
     temperatura = Q_(300, 'K')
     pressao = Q_(200, 'atm')
     resposta_esperada = Q_(0.096, 'l / mol')
-    assert np.isclose(van_der_waals(a, b, temperatura, pressao), resposta_esperada, atol=0.001)
+    assert np.isclose(van_der_waals(a, b, temperatura, pressao),
+                      resposta_esperada, atol=0.001)
 
 
 def test_valores_exemplo_a_unidade_pressao_bar():
@@ -19,7 +20,8 @@ def test_valores_exemplo_a_unidade_pressao_bar():
     temperatura = Q_(300, 'K')
     pressao = Q_(200, 'atm')
     resposta_esperada = Q_(0.096, 'l / mol')
-    assert np.isclose(van_der_waals(a, b, temperatura, pressao), resposta_esperada, atol=0.001)
+    assert np.isclose(van_der_waals(a, b, temperatura, pressao),
+                      resposta_esperada, atol=0.001)
 
 
 def test_valores_exemplo_a_unidade_pressao_pascal():
@@ -28,4 +30,5 @@ def test_valores_exemplo_a_unidade_pressao_pascal():
     temperatura = Q_(300, 'K')
     pressao = Q_(2.0265E7, 'Pa')
     resposta_esperada = Q_(0.096, 'l / mol')
-    assert np.isclose(van_der_waals(a, b, temperatura, pressao), resposta_esperada, atol=0.001)
+    assert np.isclose(van_der_waals(a, b, temperatura, pressao),
+                      resposta_esperada, atol=0.001)
