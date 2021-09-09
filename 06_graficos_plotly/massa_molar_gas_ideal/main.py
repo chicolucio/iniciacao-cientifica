@@ -105,7 +105,8 @@ class IdealGas:
                            xref='paper', yref='paper', showarrow=False,
                            font=dict(color='white'), bgcolor='red',
                            opacity=0.8)
-        fig.show()
+        # fig.show()
+        fig.write_html('output.html', auto_open=True, include_mathjax='cdn')
 
     def plot(self, backend='matplotlib'):
         if backend == 'matplotlib':
